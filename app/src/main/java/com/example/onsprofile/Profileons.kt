@@ -47,52 +47,51 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.onsprofile.ui.theme.OnsProfileTheme
 import kotlinx.serialization.Serializable
-
-
-@Serializable
-object profile
-
-
-@Serializable
-object form
-
-
+@Preview
 @Composable
-fun NavController(){
-
-    val navController = rememberNavController()
-    NavHost(navController = navController, startDestination = profile ) {
-
-        composable<profile> {
-
-            ProfileScreen({navController.navigate(form)},profiledata("Santhosh Mangaldeep","Male","02 Oct 2002","9876543210",1.0))
-        }
-        composable<form> { Form { navController.navigate(profile) }  }
-
-    }
-
+fun PreviewProfile(){
+      ProfileScreen(onBackClick = {}, profiledata = profiledata("Santhosh Mangaldeep", "Male", "02 Oct 2002", "9876543210", 1.0)
+      )
 }
-
-
 @Composable
-fun ProfileScreen(onBackClick : ()->Unit, profiledata: profiledata){
+fun ProfileScreen(onBackClick: () -> Unit, profiledata: profiledata) {
 
     Scaffold(
-        bottomBar ={ Buttombar() }
-    ){
-            Profile(modifier = Modifier.padding(it), onBackClick,profiledata)
+        bottomBar = { BottomBar() }
+    ) {
+        Profile(modifier = Modifier.padding(it), onBackClick, profiledata)
     }
 
 }
 
+@Composable
+fun BottomBarItem(icon: Int, label: String) {
+    Column(
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        IconButton(onClick = { /*TODO*/ }) {
+            Icon(
+                painter = painterResource(id = icon),
+                contentDescription = null,
+                tint = Color.Unspecified
+            )
+        }
+        Text(text = label, color = Color(0xFFC7C6CA))
+    }
+}
 
 @Composable
-fun Buttombar(){
+fun BottomBar() {
+    val items = listOf(
+        mapOf("icon" to R.drawable.ic_home, "label" to "Home"),
+        mapOf("icon" to R.drawable.ic_insurence, "label" to "Insurance"),
+        mapOf("icon" to R.drawable.ic_wellness, "label" to "Wellness"),
+        mapOf("icon" to R.drawable.ic_profile, "label" to "Profile")
+    )
 
     Surface(
         modifier = Modifier
             .clip(shape = RoundedCornerShape(topStart = 24.dp, topEnd = 32.dp))
-
     ) {
         Row(
             modifier = Modifier
@@ -101,61 +100,19 @@ fun Buttombar(){
                 .background(Color.White),
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
-            Column(
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-                IconButton(onClick = { /*TODO*/ }) {
-                    Icon(
-                        painter = painterResource(id = R.drawable.ic_home),
-                        contentDescription = null,
-                        tint = Color.Unspecified
-                    )
-                }
-                Text(text = "Home", color = Color(0xFFC7C6CA))
+            items.forEach { item ->
+                BottomBarItem(
+                    icon = item["icon"] as Int,
+                    label = item["label"] as String
+                )
             }
-            Column(
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-                IconButton(onClick = { /*TODO*/ }) {
-                    Icon(
-                        painter = painterResource(id = R.drawable.ic_insurence),
-                        contentDescription = null,
-                        tint = Color.Unspecified
-                    )
-                }
-                Text(text = "Insurence", color = Color(0xFFC7C6CA))
-            }
-            Column(
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-                IconButton(onClick = { /*TODO*/ }) {
-                    Icon(
-                        painter = painterResource(id = R.drawable.ic_wellness),
-                        contentDescription = null,
-                        tint = Color.Unspecified
-                    )
-                }
-                Text(text = "Wellness", color = Color(0xFFC7C6CA))
-            }
-            Column(
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-                IconButton(onClick = { /*TODO*/ }) {
-                    Icon(
-                        painter = painterResource(id = R.drawable.ic_profile),
-                        contentDescription = null,
-                        tint = Color.Unspecified
-                    )
-                }
-                Text(text = "Profile", color = Color(0xFFC7C6CA))
-            }
-
         }
     }
 }
 
+
 @Composable
-fun Profile(modifier: Modifier,onBackClick: () -> Unit,profiledata: profiledata){
+fun Profile(modifier: Modifier, onBackClick: () -> Unit, profiledata: profiledata) {
     OnsProfileTheme {
         Box(
             modifier = Modifier
@@ -174,7 +131,7 @@ fun Profile(modifier: Modifier,onBackClick: () -> Unit,profiledata: profiledata)
                         )
                     )
                 )
-        ){
+        ) {
             Column {
                 Row(
                     Modifier
@@ -186,7 +143,7 @@ fun Profile(modifier: Modifier,onBackClick: () -> Unit,profiledata: profiledata)
                         painter = painterResource(id = R.drawable.ic_onslogo),
                         contentDescription = null,
 
-                    )
+                        )
 
                     Row(
                         Modifier.weight(1f),
@@ -216,21 +173,16 @@ fun Profile(modifier: Modifier,onBackClick: () -> Unit,profiledata: profiledata)
                         }
                     }
                 }
-
-
-                Profiledetails(onBackClick,profiledata)
+                Profiledetails(onBackClick, profiledata)
                 ListItemsColoumn()
-
             }
         }
-
-
     }
 }
 
 
 @Composable
-fun Profiledetails(onBackClick: () -> Unit,profiledata: profiledata){
+fun Profiledetails(onBackClick: () -> Unit, profiledata: profiledata) {
 
     Column(
         verticalArrangement = Arrangement.spacedBy(16.dp),
@@ -245,7 +197,8 @@ fun Profiledetails(onBackClick: () -> Unit,profiledata: profiledata){
                 modifier = Modifier.weight(1f),
                 verticalArrangement = Arrangement.spacedBy(8.dp)
             ) {
-                Text(text = profiledata.name, color = Color.White,
+                Text(
+                    text = profiledata.name, color = Color.White,
                     style = MaterialTheme.typography.displayLarge
                 )
                 Row(
@@ -254,13 +207,21 @@ fun Profiledetails(onBackClick: () -> Unit,profiledata: profiledata){
                     Column(
                         verticalArrangement = Arrangement.spacedBy(4.dp)
                     ) {
-                        Text(text = "Gender", color = Color(0xFF93ADF4),style = MaterialTheme.typography.bodyMedium,)
+                        Text(
+                            text = "Gender",
+                            color = Color(0xFF93ADF4),
+                            style = MaterialTheme.typography.bodyMedium,
+                        )
                         Text(text = profiledata.gender, color = Color.White)
                     }
                     Column(
                         verticalArrangement = Arrangement.spacedBy(4.dp)
                     ) {
-                        Text(text = "DoB", color = Color(0xFF93ADF4),style = MaterialTheme.typography.bodyMedium)
+                        Text(
+                            text = "DoB",
+                            color = Color(0xFF93ADF4),
+                            style = MaterialTheme.typography.bodyMedium
+                        )
                         Text(text = profiledata.dob, color = Color.White)
                     }
 
@@ -268,27 +229,33 @@ fun Profiledetails(onBackClick: () -> Unit,profiledata: profiledata){
                 Column(
                     verticalArrangement = Arrangement.spacedBy(4.dp)
                 ) {
-                    Text(text = "PhoneNumber", color = Color(0xFF93ADF4),style = MaterialTheme.typography.bodyMedium)
+                    Text(
+                        text = "PhoneNumber",
+                        color = Color(0xFF93ADF4),
+                        style = MaterialTheme.typography.bodyMedium
+                    )
                     Text(text = profiledata.phnNumber, color = Color.White)
                 }
-                if(profiledata.profileProgress == 1.0){
-                        Row(
-                            verticalAlignment = Alignment.CenterVertically,
+                if (profiledata.profileProgress == 1.0) {
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically,
 
-                            ){
-                            Image(painter = painterResource(id = R.drawable.ic_pen), contentDescription = null)
-                            TextButton(
-                                onClick = { onBackClick },
-                            ){ Text(text = "Edit",
+                        ) {
+                        Image(
+                            painter = painterResource(id = R.drawable.ic_pen),
+                            contentDescription = null
+                        )
+                        TextButton(
+                            onClick = { onBackClick() },
+                        ) {
+                            Text(
+                                text = "Edit",
                                 style = MaterialTheme.typography.displayLarge,
                                 color = Color.White,
-
-
                                 )
-                            }
+                        }
                     }
                 }
-
             }
 
             Column(
@@ -300,14 +267,16 @@ fun Profiledetails(onBackClick: () -> Unit,profiledata: profiledata){
                 Box(
 
                 ) {
-                    Image(painter = painterResource(id = R.drawable.profileforons),
+                    Image(
+                        painter = painterResource(id = R.drawable.profileforons),
                         contentDescription = null,
                         modifier = Modifier
                             .padding(8.dp)
                             .height(108.dp)
                             .width(108.dp)
                             .clip(CircleShape)
-                            .background(Color.White))
+                            .background(Color.White)
+                    )
 
                     CircularProgressIndicator(
                         progress = { 1f },
@@ -322,7 +291,9 @@ fun Profiledetails(onBackClick: () -> Unit,profiledata: profiledata){
 
                     CircularProgressIndicator(
                         progress = { profiledata.profileProgress.toFloat() },
-                        color = if(profiledata.profileProgress < 1.0)  Color(0xFFFDDE13) else Color(0xFF13FD55),
+                        color = if (profiledata.profileProgress < 1.0) Color(0xFFFDDE13) else Color(
+                            0xFF13FD55
+                        ),
                         strokeWidth = 6.dp,
                         modifier = Modifier
                             .padding(top = 1.dp, start = 1.dp)
@@ -337,29 +308,39 @@ fun Profiledetails(onBackClick: () -> Unit,profiledata: profiledata){
                             .align(Alignment.TopEnd)
                             .padding(end = 6.dp)
                     ) {
-                        Box(modifier = Modifier
-                            .background(Color(0xFF002042), shape = CircleShape)
-                            .padding(4.dp)
-                        ){
-                            Icon(imageVector = Icons.Default.CameraAlt, contentDescription = null,
+                        Box(
+                            modifier = Modifier
+                                .background(Color(0xFF002042), shape = CircleShape)
+                                .padding(4.dp)
+                        ) {
+                            Icon(
+                                imageVector = Icons.Default.CameraAlt, contentDescription = null,
                                 tint = Color.White,
                                 modifier = Modifier
                                     .size(24.dp)
-                                    .padding(4.dp))
+                                    .padding(4.dp)
+                            )
                         }
                     }
 
                 }
-//                Image(painter = painterResource(id = R.drawable.ic_flash), contentDescription = null)
-                Text(text = "${profiledata.profileProgress*100}".replace(".0","%"), color = Color.White,style = MaterialTheme.typography.displayLarge)
-                Text(text = "Profile Completion", color = Color(0xFF93ADF4),style = MaterialTheme.typography.bodyMedium)
+                Text(
+                    text = "${profiledata.profileProgress * 100}".replace(".0", "%"),
+                    color = Color.White,
+                    style = MaterialTheme.typography.displayLarge
+                )
+                Text(
+                    text = "Profile Completion",
+                    color = Color(0xFF93ADF4),
+                    style = MaterialTheme.typography.bodyMedium
+                )
 
 
             }
 
         }
 
-        if(profiledata.profileProgress < 1){
+        if (profiledata.profileProgress < 1) {
             Box(
                 modifier = Modifier
                     .clip(RoundedCornerShape(16.dp))
@@ -378,60 +359,73 @@ fun Profiledetails(onBackClick: () -> Unit,profiledata: profiledata){
                         verticalAlignment = Alignment.CenterVertically,
                         modifier = Modifier.padding(top = 8.dp)
 
-                        ) {
-                        Image(painter = painterResource(R.drawable.ic_red1), contentDescription = null)
-                        Text(text = "Please fill nominee and email ID\n to complete profile",
-                            color = Color.White, fontSize = 12.sp, style = MaterialTheme.typography.bodyMedium)
+                    ) {
+                        Image(
+                            painter = painterResource(R.drawable.ic_red1),
+                            contentDescription = null
+                        )
+                        Text(
+                            text = "Please fill nominee and email ID\n to complete profile",
+                            color = Color.White,
+                            fontSize = 12.sp,
+                            style = MaterialTheme.typography.bodyMedium
+                        )
                     }
                     TextButton(
-                        onClick = { onBackClick },
+                        onClick = { onBackClick() },
 
-                        ){ Text(text = "Edit Profile",
-                        style = MaterialTheme.typography.bodyLarge,
-                        color = Color(0xFF1987FB),
-
-                        )
-
+                        ) {
+                        Text(
+                            text = "Edit Profile",
+                            style = MaterialTheme.typography.bodyLarge,
+                            color = Color(0xFF1987FB),
+                            )
                     }
 
                 }
             }
         }
+    }
+}
 
+
+@Composable
+fun Listitem(name: String, id: Int) {
+    Column(
+        modifier = Modifier.padding(start = 16.dp, end = 16.dp, top = 16.dp)
+    ) {
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            modifier = Modifier.padding(8.dp)
+        ) {
+            Icon(
+                painter = painterResource(id = id),
+                contentDescription = null,
+                tint = Color(0xFF5E5E62)
+            )
+            Text(
+                text = name, color = Color(0xFF303034), modifier = Modifier
+                    .weight(1f)
+                    .padding(start = 8.dp), fontSize = 18.sp
+            )
+            Icon(
+                imageVector = Icons.Default.KeyboardArrowRight,
+                contentDescription = null,
+                tint = Color(0xFFC7C6CA)
+            )
+        }
+        Spacer(modifier = Modifier.height(8.dp))
+        HorizontalDivider(
+            color = Color(0xFFEBEBEB),
+            thickness = 2.dp,
+            modifier = Modifier.padding(start = 8.dp, end = 8.dp)
+        )
 
     }
-
-
-}
-
-
-@Composable
-fun Listitem(name:String, id:Int){
-   Column(
-       modifier = Modifier.padding(start = 16.dp, end = 16.dp, top = 16.dp)
-   ) {
-       Row(
-           verticalAlignment = Alignment.CenterVertically,
-           modifier = Modifier.padding(8.dp)
-       ) {
-           Icon(painter = painterResource(id = id), contentDescription = null, tint = Color(0xFF5E5E62))
-           Text(text = name, color = Color(0xFF303034), modifier = Modifier
-               .weight(1f)
-               .padding(start = 8.dp), fontSize = 18.sp)
-           Icon(imageVector = Icons.Default.KeyboardArrowRight, contentDescription = null, tint = Color(0xFFC7C6CA))
-       }
-       Spacer(modifier = Modifier.height(8.dp))
-       HorizontalDivider(
-           color = Color(0xFFEBEBEB),
-           thickness = 2.dp,
-           modifier = Modifier.padding(start = 8.dp, end = 8.dp)
-       )
-
-   }
 }
 
 @Composable
-fun ListItemsColoumn(){
+fun ListItemsColoumn() {
 
     val items = mutableListOf(
         "Company Plan" to R.drawable.ic_companyplan,
