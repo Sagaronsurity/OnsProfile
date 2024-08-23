@@ -1,6 +1,7 @@
 package com.example.onsprofile
 
 import android.hardware.camera2.params.MandatoryStreamCombination
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -32,26 +33,26 @@ public val customFontFamily = FontFamily(
 @Composable
 fun OutlinedTextFeild(name : String,supportingText : String,enabled : Boolean,placeholder  : String){
     var text by remember { mutableStateOf(name) }
-    Text(text = supportingText, modifier = Modifier.padding(start = 10.dp),
+    Text(text = supportingText,
         color = if(!enabled) Color(0xFFC7C6CA) else Color(0xFF5E5E62),
         style = MaterialTheme.typography.bodyMedium.copy(
             fontFamily = customFontFamily,
-            fontSize = 16.sp
+            fontSize = 12.sp
         )
     )
+    Spacer(modifier = Modifier.height(2.dp))
     OutlinedTextField(
+        shape = RoundedCornerShape(10.dp),
         modifier = Modifier
             .fillMaxWidth()
-            .padding(8.dp)
-            .height(50.dp),
+            .height(52.dp),
         value = text,
         enabled = enabled,
-        placeholder = { Text(text = placeholder, color = Color(0xFFC7C6CA),
-            style = MaterialTheme.typography.bodyMedium.copy(
-                fontFamily = customFontFamily
-            )) },
+        placeholder = {
+            Text(text = placeholder, color = Color(0xFFC7C6CA),
+            style = MaterialTheme.typography.bodyMedium)
+                      },
         onValueChange = { newText -> text = newText },
-        shape = RoundedCornerShape(10.dp),
         textStyle = TextStyle(
             fontFamily = customFontFamily,
             fontSize = 16.sp,

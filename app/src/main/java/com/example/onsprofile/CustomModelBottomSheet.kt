@@ -43,11 +43,10 @@ fun CustomModelBottomSheet(border_color : Color, default : String, items : List<
         mutableStateOf(false)
     }
     Surface(
+        shape = RoundedCornerShape(10.dp),
         modifier = Modifier
             .fillMaxWidth()
-            .padding(8.dp)
             .height(50.dp),
-        shape = RoundedCornerShape(12.dp),
         border = BorderStroke(1.dp, if (Gender.isNotEmpty()) Color(0xFFC7C6CA) else border_color),
     ){
         Row(

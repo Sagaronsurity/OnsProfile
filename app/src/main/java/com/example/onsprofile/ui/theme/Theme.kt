@@ -34,7 +34,7 @@ private val LightColorScheme = lightColorScheme(
 )
 
 val hkGroteskFontFamily = FontFamily(
-    Font(R.font.hk_grotesk_regular, FontWeight.Normal),
+    Font(R.font.hk_grotesk_medium, FontWeight.Normal),
     Font(R.font.hk_grotesk_bold, FontWeight.Bold),
     Font(R.font.hk_grotesk_semi_bold, FontWeight.SemiBold)
 )

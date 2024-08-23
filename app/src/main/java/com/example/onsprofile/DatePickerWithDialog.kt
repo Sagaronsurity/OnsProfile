@@ -55,11 +55,10 @@ fun DatePickerWithDialog(modifier: Modifier = Modifier, border_color: Color) {
     }
 
     Surface(
+        shape = RoundedCornerShape(10.dp),
         modifier = Modifier
             .fillMaxWidth()
-            .padding(8.dp)
             .height(50.dp),
-        shape = RoundedCornerShape(10.dp),
         border = BorderStroke(1.dp, if (selectedDate != null) Color(0xFFC7C6CA) else border_color)
     ) {
         Row(
@@ -72,9 +71,7 @@ fun DatePickerWithDialog(modifier: Modifier = Modifier, border_color: Color) {
             Text(
                 text = displayText,
                 color = if (selectedDate != null) Color(0xFF303034) else Color.Gray,
-                style = MaterialTheme.typography.bodyMedium.copy(
-                    fontFamily = customFontFamily
-                ),
+                style = MaterialTheme.typography.bodyMedium,
                 modifier = Modifier.padding(start = 16.dp)
             )
             IconButton(onClick = { datepickercontroller = true }) {

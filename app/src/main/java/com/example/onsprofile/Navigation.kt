@@ -24,7 +24,7 @@ fun NavController() {
 
             ProfileScreen(
                 { navController.navigate(form) },
-                profiledata("Santhosh Mangaldeep", "Male", "02 Oct 2002", "9876543210", 1.0)
+                profiledata("Santhosh Mangaldeep", "Male", "02 Oct 2002", "9876543210", .25)
             )
         }
         composable<form> { Form { navController.navigate(profile) } }

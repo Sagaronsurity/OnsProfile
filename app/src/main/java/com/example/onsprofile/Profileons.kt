@@ -41,16 +41,13 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.navigation.NavController
-import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
-import androidx.navigation.compose.rememberNavController
 import com.example.onsprofile.ui.theme.OnsProfileTheme
-import kotlinx.serialization.Serializable
+
 @Preview
 @Composable
 fun PreviewProfile(){
-      ProfileScreen(onBackClick = {}, profiledata = profiledata("Santhosh Mangaldeep", "Male", "02 Oct 2002", "9876543210", 1.0)
+      ProfileScreen(onBackClick = {},
+          profiledata = profiledata("Santhosh Mangaldeep", "Male", "02 Oct 2002", "9876543210", .25)
       )
 }
 @Composable
@@ -195,14 +192,14 @@ fun Profiledetails(onBackClick: () -> Unit, profiledata: profiledata) {
 
             Column(
                 modifier = Modifier.weight(1f),
-                verticalArrangement = Arrangement.spacedBy(8.dp)
+                verticalArrangement = Arrangement.spacedBy(16.dp)
             ) {
                 Text(
                     text = profiledata.name, color = Color.White,
                     style = MaterialTheme.typography.displayLarge
                 )
                 Row(
-                    horizontalArrangement = Arrangement.spacedBy(16.dp)
+                    horizontalArrangement = Arrangement.spacedBy(35.dp)
                 ) {
                     Column(
                         verticalArrangement = Arrangement.spacedBy(4.dp)
@@ -331,7 +328,7 @@ fun Profiledetails(onBackClick: () -> Unit, profiledata: profiledata) {
                 )
                 Text(
                     text = "Profile Completion",
-                    color = Color(0xFF93ADF4),
+                    color = Color(0xFFC7C6CA),
                     style = MaterialTheme.typography.bodyMedium
                 )
 
@@ -392,7 +389,7 @@ fun Profiledetails(onBackClick: () -> Unit, profiledata: profiledata) {
 @Composable
 fun Listitem(name: String, id: Int) {
     Column(
-        modifier = Modifier.padding(start = 16.dp, end = 16.dp, top = 16.dp)
+        modifier = Modifier.padding(start = 8.dp, end = 16.dp, top = 8.dp)
     ) {
         Row(
             verticalAlignment = Alignment.CenterVertically,
@@ -404,9 +401,13 @@ fun Listitem(name: String, id: Int) {
                 tint = Color(0xFF5E5E62)
             )
             Text(
-                text = name, color = Color(0xFF303034), modifier = Modifier
+                text = name, color = Color(0xFF5E5E62),
+                style = MaterialTheme.typography.bodyMedium.copy(
+                    fontFamily = customFontFamily
+                ),
+                modifier = Modifier
                     .weight(1f)
-                    .padding(start = 8.dp), fontSize = 18.sp
+                    .padding(start = 12.dp), fontSize = 18.sp
             )
             Icon(
                 imageVector = Icons.Default.KeyboardArrowRight,
@@ -414,7 +415,7 @@ fun Listitem(name: String, id: Int) {
                 tint = Color(0xFFC7C6CA)
             )
         }
-        Spacer(modifier = Modifier.height(8.dp))
+        Spacer(modifier = Modifier.height(16.dp))
         HorizontalDivider(
             color = Color(0xFFEBEBEB),
             thickness = 2.dp,

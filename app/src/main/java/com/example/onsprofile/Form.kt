@@ -26,15 +26,17 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
 @Preview
 @Composable
-fun Preview(){
+fun formPreview(){
     Form({})
 }
+
 
 
 @Composable
@@ -71,7 +73,8 @@ fun Topbar(onClickback: () -> Unit) {
             ) {
                 Text(text = "Add/Update Details", style = MaterialTheme.typography.bodyLarge.copy(
                     fontFamily = customFontFamily,
-                    fontSize = 16.sp
+                    fontSize = 16.sp,
+                    fontWeight = FontWeight.SemiBold
                 ))
                 Text(
                     text = "Enter the details below to activate your plan",
@@ -112,45 +115,46 @@ fun Body(modifier: Modifier) {
                     .padding(16.dp)
             ) {
                 OutlinedTextFeild(
-                    name = "Shreya Murali",
+                    name = "Susmitha Jami",
                     supportingText = "Name",
                     enabled = true,
                     placeholder = ""
                 )
-                Spacer(modifier = Modifier.height(16.dp))
+                Spacer(modifier = Modifier.height(20.dp))
                 Text(
                     text = "Gender",
-                    modifier = Modifier.padding(start = 10.dp),
-                    color = Color.Gray
+                    color = Color.Gray,
+                    fontSize = 12.sp
                 )
+                Spacer(modifier = Modifier.height(2.dp))
                 CustomModelBottomSheet(
                     Color.Gray,
                     default = "Female",
                     placeholder = "",
                     items = listOf("Male", "Female", "Others")
                 )
-                Spacer(modifier = Modifier.height(16.dp))
+                Spacer(modifier = Modifier.height(20.dp))
                 Text(
                     text = "Date of Birth",
-                    modifier = Modifier.padding(start = 10.dp),
-                    color = Color.Gray
+                    color = Color.Gray,
+                    fontSize = 12.sp
                 )
-                DatePickerWithDialog(border_color = Color.Gray)
-                Spacer(modifier = Modifier.height(16.dp))
+                DatePickerWithDialog(border_color = Color(0xFFC7C6CA))
+                Spacer(modifier = Modifier.height(20.dp))
                 OutlinedTextFeild(
                     name = "9502438444",
                     supportingText = "Phone Number",
                     enabled = false,
                     placeholder = ""
                 )
-                Spacer(modifier = Modifier.height(16.dp))
+                Spacer(modifier = Modifier.height(20.dp))
                 OutlinedTextFeild(
                     name = "e.g. abc@gmail.com",
                     supportingText = "Company Email Id",
                     enabled = false,
                     placeholder = ""
                 )
-                Spacer(modifier = Modifier.height(16.dp))
+                Spacer(modifier = Modifier.height(20.dp))
                 OutlinedTextFeild(
                     name = "e.g. abc@gmail.com",
                     supportingText = "Personal Email ID(optional)",
@@ -161,14 +165,14 @@ fun Body(modifier: Modifier) {
 
         }
 
-        Spacer(modifier = Modifier.height(8.dp))
+        Spacer(modifier = Modifier.height(20.dp))
         Text(
             text = "Nominee Details",
             style = MaterialTheme.typography.bodyMedium,
             modifier = Modifier.padding(start = 16.dp),
             color = Color(0xFF5E5E62)
         )
-        Spacer(modifier = Modifier.height(8.dp))
+
         Surface(
             modifier = Modifier
                 .padding(16.dp)
