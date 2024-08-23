@@ -192,7 +192,7 @@ fun Body(modifier: Modifier) {
                 Spacer(modifier = Modifier.height(8.dp))
                 Text(
                     text = "Relationship",
-                    modifier = Modifier.padding(start = 10.dp),
+                    fontSize = 12.sp,
                     color = Color.Gray
                 )
                 CustomModelBottomSheet(
@@ -204,7 +204,7 @@ fun Body(modifier: Modifier) {
                 Spacer(modifier = Modifier.height(8.dp))
                 Text(
                     text = "Date of Birth",
-                    modifier = Modifier.padding(start = 10.dp),
+                    fontSize = 12.sp,
                     color = Color.Gray
                 )
                 DatePickerWithDialog(border_color = Color(0xFFDE3730))
