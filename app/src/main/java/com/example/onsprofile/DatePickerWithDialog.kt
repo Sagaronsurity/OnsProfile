@@ -29,8 +29,10 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import java.time.Instant
 import java.time.ZoneId
 import java.time.format.DateTimeFormatter
@@ -70,8 +72,11 @@ fun DatePickerWithDialog(modifier: Modifier = Modifier, border_color: Color) {
         ) {
             Text(
                 text = displayText,
-                color = if (selectedDate != null) Color(0xFF303034) else Color.Gray,
-                style = MaterialTheme.typography.bodyMedium,
+                fontFamily = FontFamily(Font(R.font.hk_grotesk_medium)),
+                fontWeight = FontWeight(500),
+                fontSize = 16.sp,
+                lineHeight = 20.sp,
+                color = Color(0xFF303034),
                 modifier = Modifier.padding(start = 16.dp)
             )
             IconButton(onClick = { datepickercontroller = true }) {

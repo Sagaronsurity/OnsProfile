@@ -7,27 +7,34 @@ import androidx.navigation.compose.rememberNavController
 import kotlinx.serialization.Serializable
 
 @Serializable
-object profile
+object Profile
 
 
 @Serializable
-object form
+object Form
 
+@Serializable
+object PlanSelection
 
 @Composable
 fun NavController() {
 
     val navController = rememberNavController()
-    NavHost(navController = navController, startDestination = profile) {
+    NavHost(navController = navController, startDestination = Profile) {
 
-        composable<profile> {
-
+        composable<Profile> {
             ProfileScreen(
-                { navController.navigate(form) },
-                profiledata("Santhosh Mangaldeep", "Male", "02 Oct 2002", "9876543210", .25)
+                { navController.navigate(Form) },
+                profiledata("Santhosh Mangaldeep", "Male", "02 Oct 2002", "9876543210", 1.0),
+                { name->
+                    when(name){
+                        "Company Plan" -> navController.navigate(PlanSelection)
+                    }
+                }
             )
         }
-        composable<form> { Form { navController.navigate(profile) } }
+        composable<Form> { Form { navController.navigate(Profile) } }
+        composable<PlanSelection> { PlanSelection() }
 
     }
 

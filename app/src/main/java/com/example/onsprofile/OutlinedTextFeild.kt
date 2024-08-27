@@ -25,21 +25,17 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
-public val customFontFamily = FontFamily(
-    Font(R.font.hk_grotesk_medium, FontWeight.Normal)
-)
-
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun OutlinedTextFeild(name : String,supportingText : String,enabled : Boolean,placeholder  : String){
     var text by remember { mutableStateOf(name) }
     Text(text = supportingText,
         color = if(!enabled) Color(0xFFC7C6CA) else Color(0xFF5E5E62),
-        style = MaterialTheme.typography.bodyMedium.copy(
-            fontFamily = customFontFamily,
-            fontSize = 12.sp
+        fontFamily = FontFamily(Font(R.font.hk_grotesk_regular)),
+        fontWeight = FontWeight(500),
+        fontSize = 12.sp,
+        lineHeight = 16.sp
         )
-    )
     Spacer(modifier = Modifier.height(2.dp))
     OutlinedTextField(
         shape = RoundedCornerShape(10.dp),
@@ -50,12 +46,18 @@ fun OutlinedTextFeild(name : String,supportingText : String,enabled : Boolean,pl
         enabled = enabled,
         placeholder = {
             Text(text = placeholder, color = Color(0xFFC7C6CA),
-            style = MaterialTheme.typography.bodyMedium)
+            fontFamily = FontFamily(Font(R.font.hk_grotesk_medium)),
+                fontSize = 16.sp,
+                fontWeight = FontWeight(500),
+                lineHeight = 20.sp
+            )
                       },
         onValueChange = { newText -> text = newText },
         textStyle = TextStyle(
-            fontFamily = customFontFamily,
+            fontFamily = FontFamily(Font(R.font.hk_grotesk_medium)),
             fontSize = 16.sp,
+            fontWeight = FontWeight(500),
+            lineHeight = 20.sp,
             color = if (!enabled) Color(0xFFC7C6CA) else Color(0xFF303034)
         ),
         colors = TextFieldDefaults.outlinedTextFieldColors(

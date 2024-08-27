@@ -30,7 +30,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.Font
+import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.FontStyle
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -58,8 +63,11 @@ fun CustomModelBottomSheet(border_color : Color, default : String, items : List<
         ) {
             Text(
                 text = if (Gender.isNotEmpty()) Gender else placeholder,
+                fontFamily = FontFamily(Font(R.font.hk_grotesk_medium)),
+                fontWeight = FontWeight(500),
+                fontSize = 16.sp,
+                lineHeight = 20.sp,
                 color = if (Gender.isNotEmpty()) Color(0xFF303034) else Color(0xFFC7C6CA),
-                style = MaterialTheme.typography.bodyMedium,
                 modifier = Modifier.padding(start = 16.dp)
             )
             IconButton(onClick = {
@@ -80,7 +88,12 @@ fun CustomModelBottomSheet(border_color : Color, default : String, items : List<
                         .fillMaxWidth()
                         .padding(16.dp)
                 ) {
-                    Text(text = "Select Relation", style = MaterialTheme.typography.bodyLarge)
+                    Text(text = "Select Relation",
+                        fontFamily = FontFamily(Font(R.font.hk_grotesk_semi_bold)),
+                        fontSize = 16.sp,
+                        lineHeight = 24.sp,
+                        fontWeight = FontWeight(600),
+                        color = Color(0xFF5E5E62))
                     Spacer(modifier = Modifier.height(12.dp))
 
                     for(i in items){
@@ -89,7 +102,12 @@ fun CustomModelBottomSheet(border_color : Color, default : String, items : List<
                             onClick = { Gender = i
                                 issheetshown = false }
                         ){
-                            Text(text = i, style = MaterialTheme.typography.bodyLarge, color = Color.Gray)
+                            Text(text = i,
+                                fontFamily = FontFamily(Font(R.font.hk_grotesk_regular)),
+                                fontSize = 16.sp,
+                                lineHeight = 20.sp,
+                                fontWeight = FontWeight(400),
+                                color = Color(0xFF5E5E62))
                         }
                         Spacer(modifier = Modifier.height(12.dp))
                         HorizontalDivider(
@@ -97,6 +115,7 @@ fun CustomModelBottomSheet(border_color : Color, default : String, items : List<
                             thickness = 2.dp
                         )
                     }
+                    Spacer(modifier = Modifier.height(16.dp))
 
                 }
 

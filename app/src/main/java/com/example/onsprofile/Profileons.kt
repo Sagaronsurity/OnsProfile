@@ -1,8 +1,9 @@
 package com.example.onsprofile
 
-import android.util.Log
+
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -12,20 +13,14 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.CameraAlt
 import androidx.compose.material.icons.filled.KeyboardArrowRight
-import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -38,6 +33,9 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.Font
+import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -47,16 +45,17 @@ import com.example.onsprofile.ui.theme.OnsProfileTheme
 @Composable
 fun PreviewProfile(){
       ProfileScreen(onBackClick = {},
-          profiledata = profiledata("Santhosh Mangaldeep", "Male", "02 Oct 2002", "9876543210", .25)
+          profiledata = profiledata("Santhosh Mangaldeep", "Male", "02 Oct 2002", "9876543210", 1.0),
+          onItemClick = {}
       )
 }
 @Composable
-fun ProfileScreen(onBackClick: () -> Unit, profiledata: profiledata) {
+fun ProfileScreen(onBackClick: () -> Unit, profiledata: profiledata , onItemClick: (String) -> Unit) {
 
     Scaffold(
         bottomBar = { BottomBar() }
     ) {
-        Profile(modifier = Modifier.padding(it), onBackClick, profiledata)
+        Profile(modifier = Modifier.padding(it), onBackClick, profiledata , onItemClick )
     }
 
 }
@@ -73,7 +72,13 @@ fun BottomBarItem(icon: Int, label: String) {
                 tint = Color.Unspecified
             )
         }
-        Text(text = label, color = Color(0xFFC7C6CA))
+        Text(text = label,
+            color = Color(0xFFC7C6CA),
+            fontFamily = FontFamily(Font(R.font.hk_grotesk_regular)),
+            fontSize = 10.sp,
+            lineHeight = 13.sp,
+            fontWeight = FontWeight(400)
+        )
     }
 }
 
@@ -82,7 +87,7 @@ fun BottomBar() {
     val items = listOf(
         mapOf("icon" to R.drawable.ic_home, "label" to "Home"),
         mapOf("icon" to R.drawable.ic_insurence, "label" to "Insurance"),
-        mapOf("icon" to R.drawable.ic_wellness, "label" to "Wellness"),
+        mapOf("icon" to R.drawable.ic_love, "label" to "Wellness"),
         mapOf("icon" to R.drawable.ic_profile, "label" to "Profile")
     )
 
@@ -109,7 +114,7 @@ fun BottomBar() {
 
 
 @Composable
-fun Profile(modifier: Modifier, onBackClick: () -> Unit, profiledata: profiledata) {
+fun Profile(modifier: Modifier, onBackClick: () -> Unit, profiledata: profiledata , onItemClick: (String) -> Unit) {
     OnsProfileTheme {
         Box(
             modifier = Modifier
@@ -171,7 +176,7 @@ fun Profile(modifier: Modifier, onBackClick: () -> Unit, profiledata: profiledat
                     }
                 }
                 Profiledetails(onBackClick, profiledata)
-                ListItemsColoumn()
+                ListItemsColoumn(onItemClick)
             }
         }
     }
@@ -192,11 +197,14 @@ fun Profiledetails(onBackClick: () -> Unit, profiledata: profiledata) {
 
             Column(
                 modifier = Modifier.weight(1f),
-                verticalArrangement = Arrangement.spacedBy(16.dp)
+                verticalArrangement = Arrangement.spacedBy(12.dp)
             ) {
                 Text(
                     text = profiledata.name, color = Color.White,
-                    style = MaterialTheme.typography.displayLarge
+                    fontFamily = FontFamily(Font(R.font.hk_grotesk_bold)),
+                    fontSize = 16.sp,
+                    fontWeight = FontWeight(700),
+                    lineHeight = 19.sp
                 )
                 Row(
                     horizontalArrangement = Arrangement.spacedBy(35.dp)
@@ -207,9 +215,17 @@ fun Profiledetails(onBackClick: () -> Unit, profiledata: profiledata) {
                         Text(
                             text = "Gender",
                             color = Color(0xFF93ADF4),
-                            style = MaterialTheme.typography.bodyMedium,
+                            fontFamily = FontFamily(Font(R.font.hk_grotesk_medium)),
+                            fontSize = 12.sp,
+                            fontWeight = FontWeight(300),
+                            lineHeight = 13.sp
                         )
-                        Text(text = profiledata.gender, color = Color.White)
+                        Text(text = profiledata.gender,
+                            color = Color.White,
+                            fontFamily = FontFamily(Font(R.font.hk_grotesk_medium)),
+                            fontSize = 14.sp,
+                            fontWeight = FontWeight(500),
+                            lineHeight = 20.sp)
                     }
                     Column(
                         verticalArrangement = Arrangement.spacedBy(4.dp)
@@ -217,9 +233,17 @@ fun Profiledetails(onBackClick: () -> Unit, profiledata: profiledata) {
                         Text(
                             text = "DoB",
                             color = Color(0xFF93ADF4),
-                            style = MaterialTheme.typography.bodyMedium
+                            fontFamily = FontFamily(Font(R.font.hk_grotesk_medium)),
+                            fontSize = 12.sp,
+                            fontWeight = FontWeight(300),
+                            lineHeight = 13.sp
                         )
-                        Text(text = profiledata.dob, color = Color.White)
+                        Text(text = profiledata.dob,
+                            color = Color.White,
+                            fontFamily = FontFamily(Font(R.font.hk_grotesk_medium)),
+                            fontSize = 14.sp,
+                            fontWeight = FontWeight(500),
+                            lineHeight = 20.sp)
                     }
 
                 }
@@ -227,36 +251,45 @@ fun Profiledetails(onBackClick: () -> Unit, profiledata: profiledata) {
                     verticalArrangement = Arrangement.spacedBy(4.dp)
                 ) {
                     Text(
-                        text = "PhoneNumber",
+                        text = "Phone Number",
                         color = Color(0xFF93ADF4),
-                        style = MaterialTheme.typography.bodyMedium
+                        fontFamily = FontFamily(Font(R.font.hk_grotesk_regular)),
+                        fontSize = 12.sp,
+                        fontWeight = FontWeight(300),
+                        lineHeight = 13.sp
                     )
-                    Text(text = profiledata.phnNumber, color = Color.White)
+                    Text(text = profiledata.phnNumber,
+                        color = Color.White,
+                        fontFamily = FontFamily(Font(R.font.hk_grotesk_medium)),
+                        fontSize = 14.sp,
+                        fontWeight = FontWeight(500),
+                        lineHeight = 20.sp)
                 }
                 if (profiledata.profileProgress == 1.0) {
                     Row(
                         verticalAlignment = Alignment.CenterVertically,
+                        modifier = Modifier
+                            .clickable { onBackClick() }
 
                         ) {
                         Image(
                             painter = painterResource(id = R.drawable.ic_pen),
                             contentDescription = null
                         )
-                        TextButton(
-                            onClick = { onBackClick() },
-                        ) {
-                            Text(
-                                text = "Edit",
-                                style = MaterialTheme.typography.displayLarge,
-                                color = Color.White,
-                                )
-                        }
+                        Text(
+                            text = "Edit",
+                            fontFamily = FontFamily(Font(R.font.hk_grotesk_bold)),
+                            fontSize = 14.sp,
+                            fontWeight = FontWeight(700),
+                            lineHeight = 17.sp,
+                            color = Color.White,
+                            modifier = Modifier.padding(start = 4.dp)
+                        )
                     }
                 }
             }
 
             ProfileCard(progress = profiledata.profileProgress.toFloat())
-
         }
 
         if (profiledata.profileProgress < 1) {
@@ -287,16 +320,20 @@ fun Profiledetails(onBackClick: () -> Unit, profiledata: profiledata) {
                             text = "Please fill nominee and email ID\n to complete profile",
                             color = Color.White,
                             fontSize = 12.sp,
-                            style = MaterialTheme.typography.bodyMedium
+                            fontFamily = FontFamily(Font(R.font.hk_grotesk_medium)),
+                            lineHeight = 14.sp,
+                            fontWeight = FontWeight(400)
                         )
                     }
                     TextButton(
                         onClick = { onBackClick() },
-
                         ) {
                         Text(
                             text = "Edit Profile",
-                            style = MaterialTheme.typography.bodyLarge,
+                            fontSize = 14.sp,
+                            fontFamily = FontFamily(Font(R.font.hk_grotesk_regular)),
+                            lineHeight = 16.sp,
+                            fontWeight = FontWeight(500),
                             color = Color(0xFF1987FB),
                             )
                     }
@@ -309,13 +346,15 @@ fun Profiledetails(onBackClick: () -> Unit, profiledata: profiledata) {
 
 
 @Composable
-fun Listitem(name: String, id: Int) {
+fun Listitem(name: String, id: Int , onClick: (String) -> Unit) {
     Column(
         modifier = Modifier.padding(start = 8.dp, end = 16.dp, top = 8.dp)
     ) {
         Row(
             verticalAlignment = Alignment.CenterVertically,
-            modifier = Modifier.padding(8.dp)
+            modifier = Modifier
+                .padding(8.dp)
+                .clickable { onClick(name) }
         ) {
             Icon(
                 painter = painterResource(id = id),
@@ -323,21 +362,24 @@ fun Listitem(name: String, id: Int) {
                 tint = Color(0xFF5E5E62)
             )
             Text(
-                text = name, color = Color(0xFF5E5E62),
-                style = MaterialTheme.typography.bodyMedium.copy(
-                    fontFamily = customFontFamily
-                ),
+                text = name,
+                color = Color(0xFF303034),
+                fontFamily = FontFamily(Font(R.font.hk_grotesk_medium)),
+                fontSize = 14.sp,
+                lineHeight = 20.sp,
+                fontWeight = FontWeight(500),
                 modifier = Modifier
                     .weight(1f)
-                    .padding(start = 12.dp), fontSize = 18.sp
+                    .padding(start = 12.dp)
             )
+
             Icon(
                 imageVector = Icons.Default.KeyboardArrowRight,
                 contentDescription = null,
                 tint = Color(0xFFC7C6CA)
             )
         }
-        Spacer(modifier = Modifier.height(16.dp))
+        Spacer(modifier = Modifier.height(15.dp))
         HorizontalDivider(
             color = Color(0xFFEBEBEB),
             thickness = 2.dp,
@@ -348,7 +390,7 @@ fun Listitem(name: String, id: Int) {
 }
 
 @Composable
-fun ListItemsColoumn() {
+fun ListItemsColoumn(onItemClick : (String)->Unit) {
 
     val items = mutableListOf(
         "Company Plan" to R.drawable.ic_companyplan,
@@ -358,9 +400,10 @@ fun ListItemsColoumn() {
         "Billing" to R.drawable.ic_billings,
         "Orders" to R.drawable.ic_orders,
         "Autopay" to R.drawable.ic_autopay,
-        "Support" to R.drawable.ic_headset
+        "Support" to R.drawable.ic_headset,
+        "Settings" to R.drawable.ic_settings,
     )
-
+    var count = 0
     LazyColumn(
         modifier = Modifier
             .clip(RoundedCornerShape(topStart = 32.dp, topEnd = 32.dp))
@@ -368,8 +411,13 @@ fun ListItemsColoumn() {
             .padding(top = 32.dp)
     ) {
         items(items) { item ->
-            Listitem(name = item.first, id = item.second)
+            count++
+            Listitem(name = item.first, id = item.second , onItemClick )
+            if(count==items.size){
+                Spacer(modifier = Modifier.height(64.dp))
+            }
         }
+
     }
 
 }

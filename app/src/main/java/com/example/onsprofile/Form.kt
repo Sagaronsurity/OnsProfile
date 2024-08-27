@@ -26,6 +26,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.Font
+import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -56,6 +59,7 @@ fun Form(onClickback: () -> Unit) {
 fun Topbar(onClickback: () -> Unit) {
     Box(
         modifier = Modifier.background(Color.White)
+            .padding(top = 10.dp)
     ) {
         Row(
             modifier = Modifier
@@ -71,18 +75,19 @@ fun Topbar(onClickback: () -> Unit) {
             Column(
                 modifier = Modifier.padding(top = 12.dp)
             ) {
-                Text(text = "Add/Update Details", style = MaterialTheme.typography.bodyLarge.copy(
-                    fontFamily = customFontFamily,
+                Text(text = "Add/Update Details",
+                    fontFamily = FontFamily(Font(R.font.hk_grotesk_semi_bold)),
+                    fontWeight = FontWeight(600),
                     fontSize = 16.sp,
-                    fontWeight = FontWeight.SemiBold
-                ))
+                    lineHeight = 24.sp,
+                    color = Color(0xFF303034))
                 Text(
                     text = "Enter the details below to activate your plan",
-                    style = MaterialTheme.typography.bodyMedium.copy(
-                        fontFamily = customFontFamily,
-                        fontSize = 12.sp
-                    )
-                )
+                    fontFamily = FontFamily(Font(R.font.hk_grotesk_regular)),
+                    fontSize = 12.sp,
+                    fontWeight = FontWeight(500),
+                    lineHeight = 16.sp,
+                    color = Color(0xFF303034))
             }
         }
     }
@@ -123,12 +128,15 @@ fun Body(modifier: Modifier) {
                 Spacer(modifier = Modifier.height(20.dp))
                 Text(
                     text = "Gender",
-                    color = Color.Gray,
-                    fontSize = 12.sp
+                    color = Color(0xFF5E5E62),
+                    fontFamily = FontFamily(Font(R.font.hk_grotesk_medium)),
+                    fontSize = 12.sp,
+                    lineHeight = 16.sp,
+                    fontWeight = FontWeight(500)
                 )
                 Spacer(modifier = Modifier.height(2.dp))
                 CustomModelBottomSheet(
-                    Color.Gray,
+                    Color(0xFFC7C6CA),
                     default = "Female",
                     placeholder = "",
                     items = listOf("Male", "Female", "Others")
@@ -136,8 +144,11 @@ fun Body(modifier: Modifier) {
                 Spacer(modifier = Modifier.height(20.dp))
                 Text(
                     text = "Date of Birth",
-                    color = Color.Gray,
-                    fontSize = 12.sp
+                    color = Color(0xFF5E5E62),
+                    fontFamily = FontFamily(Font(R.font.hk_grotesk_medium)),
+                    fontSize = 12.sp,
+                    lineHeight = 16.sp,
+                    fontWeight = FontWeight(500)
                 )
                 DatePickerWithDialog(border_color = Color(0xFFC7C6CA))
                 Spacer(modifier = Modifier.height(20.dp))
@@ -158,7 +169,7 @@ fun Body(modifier: Modifier) {
                 OutlinedTextFeild(
                     name = "e.g. abc@gmail.com",
                     supportingText = "Personal Email ID(optional)",
-                    enabled = true,
+                    enabled = false,
                     placeholder = ""
                 )
             }
@@ -168,7 +179,10 @@ fun Body(modifier: Modifier) {
         Spacer(modifier = Modifier.height(20.dp))
         Text(
             text = "Nominee Details",
-            style = MaterialTheme.typography.bodyMedium,
+            fontFamily = FontFamily(Font(R.font.hk_grotesk_medium)),
+            fontSize = 12.sp,
+            lineHeight = 16.sp,
+            fontWeight = FontWeight(500),
             modifier = Modifier.padding(start = 16.dp),
             color = Color(0xFF5E5E62)
         )
@@ -189,11 +203,14 @@ fun Body(modifier: Modifier) {
                     enabled = true,
                     placeholder = "Enter Nominee"
                 )
-                Spacer(modifier = Modifier.height(8.dp))
+                Spacer(modifier = Modifier.height(20.dp))
                 Text(
-                    text = "Relationship",
+                    text = "RelationShip",
+                    color = Color(0xFF5E5E62),
+                    fontFamily = FontFamily(Font(R.font.hk_grotesk_medium)),
                     fontSize = 12.sp,
-                    color = Color.Gray
+                    lineHeight = 16.sp,
+                    fontWeight = FontWeight(500)
                 )
                 CustomModelBottomSheet(
                     Color(0xFFDE3730),
@@ -201,11 +218,14 @@ fun Body(modifier: Modifier) {
                     listOf("Husband", "Father", "Mother", "Brother", "Sister", "Child"),
                     placeholder = "Select Relation"
                 )
-                Spacer(modifier = Modifier.height(8.dp))
+                Spacer(modifier = Modifier.height(20.dp))
                 Text(
                     text = "Date of Birth",
+                    color = Color(0xFF5E5E62),
+                    fontFamily = FontFamily(Font(R.font.hk_grotesk_medium)),
                     fontSize = 12.sp,
-                    color = Color.Gray
+                    lineHeight = 16.sp,
+                    fontWeight = FontWeight(500)
                 )
                 DatePickerWithDialog(border_color = Color(0xFFDE3730))
             }
@@ -239,7 +259,14 @@ fun Buttom() {
                 .height(48.dp),
 
             ) {
-            Text(text = "Save & Proceed", style = MaterialTheme.typography.bodyLarge)
+            Text(
+                text = "Save & Proceed",
+                color = Color.White,
+                fontFamily = FontFamily(Font(R.font.hk_grotesk_bold)),
+                fontSize = 16.sp,
+                lineHeight = 20.sp,
+                fontWeight = FontWeight.Bold
+            )
 
         }
     }

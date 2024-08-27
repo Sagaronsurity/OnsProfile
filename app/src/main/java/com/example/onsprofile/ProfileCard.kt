@@ -5,6 +5,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -22,7 +23,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.Font
+import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.FontStyle
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 
 @Composable
 fun ProfileCard(progress : Float){
@@ -92,15 +98,26 @@ fun ProfileCard(progress : Float){
             }
 
         }
-        Text(
-            text = "${progress * 100}".replace(".0", "%"),
-            color = Color.White,
-            style = MaterialTheme.typography.displayLarge
-        )
+        Row {
+//            Icon(painter = painterResource(id = R.drawable.ic_flash), contentDescription = null, tint = Color.Unspecified)
+            Text(
+                text = "${progress * 100}".replace(".0", "%"),
+                color = Color.White,
+                fontFamily = FontFamily(Font(R.font.hk_grotesk_regular)),
+                fontSize = 14.sp,
+                fontWeight = FontWeight(700),
+                lineHeight = 17.sp
+            )
+        }
+
+
         Text(
             text = "Profile Completion",
             color = Color(0xFFC7C6CA),
-            style = MaterialTheme.typography.bodyMedium
+            fontFamily = FontFamily(Font(R.font.hk_grotesk_regular)),
+            fontSize = 12.sp,
+            fontWeight = FontWeight(400),
+            lineHeight = 16.sp
         )
 
 
