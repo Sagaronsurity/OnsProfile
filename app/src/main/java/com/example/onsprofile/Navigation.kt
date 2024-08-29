@@ -34,7 +34,7 @@ fun NavController() {
             )
         }
         composable<Form> { Form { navController.navigate(Profile) } }
-        composable<PlanSelection> { PlanSelection() }
+        composable<PlanSelection> { PlanSelectionScreen() }
 
     }
 

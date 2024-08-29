@@ -63,21 +63,24 @@ fun ProfileScreen(onBackClick: () -> Unit, profiledata: profiledata , onItemClic
 @Composable
 fun BottomBarItem(icon: Int, label: String) {
     Column(
-        horizontalAlignment = Alignment.CenterHorizontally
+        horizontalAlignment = Alignment.CenterHorizontally,
+        modifier = Modifier.padding(start = 23.dp, end = 23.dp,top = 13.dp)
     ) {
-        IconButton(onClick = { /*TODO*/ }) {
+
             Icon(
                 painter = painterResource(id = icon),
                 contentDescription = null,
-                tint = Color.Unspecified
+                tint = Color.Unspecified,
+                modifier = Modifier.clickable {  }
             )
-        }
+
         Text(text = label,
             color = Color(0xFFC7C6CA),
             fontFamily = FontFamily(Font(R.font.hk_grotesk_regular)),
             fontSize = 10.sp,
             lineHeight = 13.sp,
-            fontWeight = FontWeight(400)
+            fontWeight = FontWeight(400),
+            modifier = Modifier.padding(bottom = 12.dp, top = 3.dp)
         )
     }
 }
@@ -90,16 +93,13 @@ fun BottomBar() {
         mapOf("icon" to R.drawable.ic_love, "label" to "Wellness"),
         mapOf("icon" to R.drawable.ic_profile, "label" to "Profile")
     )
-
-    Surface(
-        modifier = Modifier
-            .clip(shape = RoundedCornerShape(topStart = 32.dp, topEnd = 32.dp))
-    ) {
         Row(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(start = 16.dp, end = 16.dp)
-                .background(Color.White),
+                .background(Color.White,
+                    shape = RoundedCornerShape(topStart = 32.dp, topEnd = 32.dp)
+                ),
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
             items.forEach { item ->
@@ -110,7 +110,7 @@ fun BottomBar() {
             }
         }
     }
-}
+
 
 
 @Composable
@@ -414,7 +414,7 @@ fun ListItemsColoumn(onItemClick : (String)->Unit) {
             count++
             Listitem(name = item.first, id = item.second , onItemClick )
             if(count==items.size){
-                Spacer(modifier = Modifier.height(64.dp))
+                Spacer(modifier = Modifier.height(70.dp))
             }
         }
 

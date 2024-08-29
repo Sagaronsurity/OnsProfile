@@ -7,9 +7,6 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.aspectRatio
-import androidx.compose.foundation.layout.fillMaxHeight
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -18,6 +15,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -40,9 +38,6 @@ import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.onsprofile.ui.theme.hkGroteskFontFamily
-import kotlin.math.absoluteValue
-
 
 @Composable
 fun InsDiscription(
@@ -214,8 +209,7 @@ fun PlanCard(
 ){
     var is_selected by remember { mutableStateOf(false) }
 
-    Column(
-    ) {
+    Column{
         Spacer(modifier = Modifier.height(if(pageOffset > 0) (pageOffset*34).dp else abs(pageOffset*11).dp))
         Box(
             modifier = Modifier
@@ -230,9 +224,14 @@ fun PlanCard(
                         Brush.linearGradient(
                             colors = listOf(
                                 Color.Transparent,
+                                Color.Transparent,
+                                Color(0xFF2A982F),
                                 Color(0xFF2A982F),
                                 Color(0xFF2A982F),
                                 Color.Transparent,
+                                Color.Transparent,
+
+
                             ),
                         )
                     } else {
