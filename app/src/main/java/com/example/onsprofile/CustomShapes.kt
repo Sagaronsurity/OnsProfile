@@ -32,44 +32,34 @@ class CustomShape(
     ): Outline {
         val cornerRadiusPx = with(density) { cornerRadius.toPx() }
         val lineLength1 = 720f
-        val lineLength2 = 1f  // Updated line length from 6px to 4px
-
+        val lineLength2 = 1f
         val path = Path().apply {
-            // Start at the top-right corner (0, 0)
             moveTo(size.width, 0f)
-
-            // Move to (cornerRadius, 0)
             lineTo(lineLength1, 0f)
-
-            // Draw the first arc (downward)
             arcTo(
                 rect = Rect(
                     Offset(size.width - lineLength1 - cornerRadiusPx, 0f),
                     Size(cornerRadiusPx, cornerRadiusPx )
                 ),
-                startAngleDegrees = 270f, // 270 degrees to start downward
-                sweepAngleDegrees = 90f, // 90 degrees arc
+                startAngleDegrees = 270f,
+                sweepAngleDegrees = 90f,
                 forceMoveTo = false
             )
 
-            // Draw the line with length of 4px downward (updated)
             lineTo(size.width - lineLength1 + 4f, cornerRadiusPx + lineLength2 )
 
-            // Draw the second arc (towards right)
             arcTo(
                 rect = Rect(
                     Offset(size.width - lineLength1 + 6f, cornerRadiusPx + lineLength2),
                     Size(cornerRadiusPx, cornerRadiusPx)
                 ),
-                startAngleDegrees = 180f, // 180 degrees to start rightward
-                sweepAngleDegrees = -90f, // 90 degrees arc
+                startAngleDegrees = 180f,
+                sweepAngleDegrees = -90f,
                 forceMoveTo = false
             )
 
-            // Horizontal line to the top-right corner's arc start
             lineTo(size.width, cornerRadiusPx + lineLength2 + cornerRadiusPx)
 
-            // Draw the arc at the top-right corner (downward)
             arcTo(
                 rect = Rect(
                     Offset(size.width - cornerRadiusPx, cornerRadiusPx + lineLength2 + cornerRadiusPx),
@@ -94,24 +84,20 @@ class CustomShape(
                 forceMoveTo = false
             )
 
-            // Bottom horizontal line to the bottom-left arc start
             lineTo(cornerRadiusPx, size.height)
 
-            // Bottom-left corner arc
             arcTo(
                 rect = Rect(
                     Offset(0f, size.height - cornerRadiusPx),
                     Size(cornerRadiusPx, cornerRadiusPx)
                 ),
-                startAngleDegrees = 90f, // 90 degrees to start moving upward
-                sweepAngleDegrees = 90f, // 90 degrees arc
+                startAngleDegrees = 90f,
+                sweepAngleDegrees = 90f,
                 forceMoveTo = false
             )
 
-            // Left vertical line to the top-left arc start
             lineTo(0f, cornerRadiusPx)
 
-            // Draw the final arc to close the shape (top-left corner)
             arcTo(
                 rect = Rect(
                     Offset(0f, 0f),
@@ -121,7 +107,6 @@ class CustomShape(
                 sweepAngleDegrees = 90f,
                 forceMoveTo = false
             )
-
             close()
         }
 

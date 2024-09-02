@@ -8,14 +8,18 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.VerticalDivider
 import androidx.compose.runtime.Composable
@@ -26,6 +30,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.Font
@@ -199,6 +204,115 @@ val Pages = mutableListOf(
     PlanCardData("Ruby", 3, 2, false, 150)
 )
 
+@Composable
+@Preview
+fun WelcomeTop(){
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .background(
+                color = Color.White
+            )
+            .padding(top = 50.dp),
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Text(text = "Upgrade Membership ✨",
+            color = Color(0xFF303034),
+            fontFamily = FontFamily(Font(R.font.hk_grotesk_bold)),
+            fontSize = 22.sp,
+            lineHeight = 28.sp,
+            fontWeight = FontWeight(700),
+            modifier = Modifier.padding(start = 5.dp)
+        )
+        Spacer(modifier = Modifier.height(8.dp))
+        Text(text = "Unlock premium features for an enhanced experience",
+            color = Color(0xFF5E5E62),
+            fontFamily = FontFamily(Font(R.font.hk_grotesk_regular)),
+            fontSize = 12.sp,
+            lineHeight = 16.sp,
+            fontWeight = FontWeight(400),
+            modifier = Modifier.padding(start = 5.dp)
+        )
+        HorizontalDivider(
+            modifier = Modifier
+                .padding(16.dp)
+                .background(
+                    brush = Brush.horizontalGradient(
+                        colors = listOf(
+                            Color.White,
+                            Color(0xFFE2E3E6),
+                            Color.White
+                        )
+                    )
+                )
+        )
+        Spacer(modifier = Modifier.height(60.dp))
+    }
+}
+
+
+@Composable
+fun BottomCheckout(price : Int){
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .background(
+                color = Color.White
+            ),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Column(
+           modifier = Modifier
+               .weight(1f)
+               .padding(top = 21.dp, start = 16.dp, bottom = 16.dp)
+        ) {
+            if(price==0){
+                Text(text = "Skip Upgrade",
+                    color = Color(0xFF0188FC),
+                    fontFamily = FontFamily(Font(R.font.hk_grotesk_medium)),
+                    fontSize = 15.sp,
+                    lineHeight = 20.sp,
+                    fontWeight = FontWeight(700),
+                    modifier = Modifier.padding(start = 5.dp)
+                )
+            }
+            else{
+                Text(text = "₹${price}/month",
+                    color = Color(0xFF303034),
+                    fontFamily = FontFamily(Font(R.font.hk_grotesk_medium)),
+                    fontSize = 20.sp,
+                    lineHeight = 28.sp,
+                    fontWeight = FontWeight(500)
+                )
+                Text(text = "+GST",
+                    color = Color(0xFF5E5E62),
+                    fontFamily = FontFamily(Font(R.font.hk_grotesk_medium)),
+                    fontSize = 12.sp,
+                    lineHeight = 16.sp,
+                    fontWeight = FontWeight(400))
+            }
+        }
+        Button(
+            onClick = { },
+            colors = ButtonDefaults.buttonColors(
+                containerColor = if(price==0) Color(0xFFC7C6CA) else Color(0xFF0188FC),
+            ),
+            shape = RoundedCornerShape(32.dp),
+            modifier = Modifier.padding(top = 16.dp, start = 16.dp, bottom = 16.dp, end = 16.dp)
+        ) {
+            Text(
+                text = if(price==0) "Upgrade" else "Upgrade 1/3",
+                color = Color(0xFFF2F9FF),
+                fontFamily = FontFamily(Font(R.font.hk_grotesk_bold)),
+                fontSize = 15.sp,
+                lineHeight = 20.sp,
+                fontWeight = FontWeight(700),
+                modifier = Modifier.padding(top = 12.dp, bottom = 12.dp , start = 36.dp, end = 36.dp)
+            )
+        }
+
+    }
+}
 
 @Composable
 fun PlanSelection(
@@ -231,26 +345,39 @@ fun PlanSelection(
 fun PlanSelectionScreen() {
     var isCurrentPlanSelected by remember { mutableStateOf(true) }
     var selectedPage by remember { mutableStateOf(-1) }
+    var price by remember { mutableStateOf(0) }
 
-    Column(
-        modifier = Modifier
-            .background(color = Color(0xFFF2F9FF))
-            .padding(top = 200.dp)
-    ) {
-        CurrentPlanCard(
-            isCurrentPlanSelected = isCurrentPlanSelected,
-            onCurrentPlanSelected = { isSelected ->
-                isCurrentPlanSelected = isSelected
-                if (isSelected) selectedPage = -1
-            }
-        )
-        PlanSelection(
-            selectedPage = selectedPage,
-            onPageSelected = { page ->
-                selectedPage = page
-                isCurrentPlanSelected = false
-            }
-        )
+    Scaffold(
+        topBar = {WelcomeTop()},
+        bottomBar = {BottomCheckout(price)},
+    ) {it->
+
+        Column(
+            modifier = Modifier.padding(it)
+                .fillMaxSize()
+                .background(
+                    color = Color(0xFFF2F9FF)
+                )
+        ) {
+            CurrentPlanCard(
+                isCurrentPlanSelected = isCurrentPlanSelected,
+                onCurrentPlanSelected = { isSelected ->
+                    isCurrentPlanSelected = isSelected
+                    if (isSelected) selectedPage = -1
+                    price = 0
+                }
+            )
+
+            PlanSelection(
+                selectedPage = selectedPage,
+                onPageSelected = { page ->
+                    selectedPage = page
+                    isCurrentPlanSelected = false
+                    price = Pages[page].Price
+                }
+            )
+        }
+
     }
 }
 
