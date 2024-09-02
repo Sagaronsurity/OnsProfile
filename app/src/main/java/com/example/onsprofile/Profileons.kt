@@ -93,11 +93,11 @@ fun BottomBar() {
         mapOf("icon" to R.drawable.ic_love, "label" to "Wellness"),
         mapOf("icon" to R.drawable.ic_profile, "label" to "Profile")
     )
-        Row(
-            modifier = Modifier
+    Row(
+        modifier = Modifier
                 .fillMaxWidth()
                 .padding(start = 16.dp, end = 16.dp)
-                .background(Color.White,
+                .background(Color.Black,
                     shape = RoundedCornerShape(topStart = 32.dp, topEnd = 32.dp)
                 ),
             horizontalArrangement = Arrangement.SpaceBetween
@@ -109,7 +109,7 @@ fun BottomBar() {
                 )
             }
         }
-    }
+}
 
 
 
@@ -152,27 +152,28 @@ fun Profile(modifier: Modifier, onBackClick: () -> Unit, profiledata: profiledat
                         horizontalArrangement = Arrangement.End,
                         verticalAlignment = Alignment.CenterVertically
                     ) {
-                        IconButton(onClick = { /*TODO*/ }) {
-                            Icon(
-                                painter = painterResource(id = R.drawable.ic_notification),
-                                contentDescription = null,
-                                tint = Color.Unspecified
-                            )
-                        }
-                        IconButton(onClick = { /*TODO*/ }) {
-                            Icon(
-                                painter = painterResource(id = R.drawable.ic_cart),
-                                contentDescription = null,
-                                tint = Color.Unspecified
-                            )
-                        }
-                        IconButton(onClick = { /*TODO*/ }) {
-                            Icon(
-                                painter = painterResource(id = R.drawable.ic_headset),
-                                contentDescription = null,
-                                tint = Color.Unspecified
-                            )
-                        }
+
+                        Icon(
+                            painter = painterResource(id = R.drawable.ic_notification),
+                            contentDescription = null,
+                            tint = Color.Unspecified,
+                            modifier = Modifier.clickable {  }
+                        )
+
+                        Icon(
+                            painter = painterResource(id = R.drawable.ic_cart),
+                            contentDescription = null,
+                            tint = Color.Unspecified,
+                            modifier = Modifier.clickable {  }
+                                .padding(start = 24.dp)
+                        )
+                        Icon(
+                            painter = painterResource(id = R.drawable.ic_headset),
+                            contentDescription = null,
+                            tint = Color.Unspecified,
+                            modifier = Modifier.clickable {  }
+                                .padding(start = 24.dp)
+                        )
                     }
                 }
                 Profiledetails(onBackClick, profiledata)
@@ -354,7 +355,6 @@ fun Listitem(name: String, id: Int , onClick: (String) -> Unit) {
             verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier
                 .padding(8.dp)
-                .clickable { onClick(name) }
         ) {
             Icon(
                 painter = painterResource(id = id),
@@ -376,7 +376,8 @@ fun Listitem(name: String, id: Int , onClick: (String) -> Unit) {
             Icon(
                 imageVector = Icons.Default.KeyboardArrowRight,
                 contentDescription = null,
-                tint = Color(0xFFC7C6CA)
+                tint = Color(0xFFC7C6CA),
+                modifier = Modifier.clickable { onClick(name) }
             )
         }
         Spacer(modifier = Modifier.height(15.dp))
@@ -419,6 +420,5 @@ fun ListItemsColoumn(onItemClick : (String)->Unit) {
         }
 
     }
-
 }
 

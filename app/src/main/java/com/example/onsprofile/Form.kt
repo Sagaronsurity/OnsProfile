@@ -57,10 +57,7 @@ fun Form(onClickback: () -> Unit) {
 
 @Composable
 fun Topbar(onClickback: () -> Unit) {
-    Box(
-        modifier = Modifier.background(Color.White)
-            .padding(top = 10.dp)
-    ) {
+
         Row(
             modifier = Modifier
                 .fillMaxWidth()
@@ -91,7 +88,7 @@ fun Topbar(onClickback: () -> Unit) {
             }
         }
     }
-}
+
 
 
 

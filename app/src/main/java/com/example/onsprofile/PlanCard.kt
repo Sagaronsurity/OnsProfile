@@ -162,7 +162,7 @@ fun BodyofCard(
                 lineHeight = 28.sp,
                 color = Color(0xFF14715A)
             )
-            Icon(painter = painterResource(id = R.drawable.ic_ibutton), contentDescription = null)
+            Icon(painter = painterResource(id = R.drawable.ic_ibutton), contentDescription = null,)
         }
         Spacer(modifier = Modifier.height((12-abs(pageOffset*5)).dp))
         HorizontalDivider(
@@ -205,9 +205,10 @@ fun BodyofCard(
 @Composable
 fun PlanCard(
     data: PlanCardData,
-    pageOffset : Float
+    pageOffset : Float,
+    is_selected : Boolean,
+    onCardSelected : ()->Unit
 ){
-    var is_selected by remember { mutableStateOf(false) }
 
     Column{
         Spacer(modifier = Modifier.height(if(pageOffset > 0) (pageOffset*34).dp else abs(pageOffset*11).dp))
@@ -271,7 +272,7 @@ fun PlanCard(
 
             }
             IconButton(
-                onClick = { is_selected = !is_selected },
+                onClick = { onCardSelected()  },
                 modifier = Modifier
                     .align(Alignment.TopEnd)
             ) {
@@ -298,8 +299,8 @@ fun PlanCard(
     }
 
 }
-@Preview
-@Composable
-fun CardPreview(){
-    PlanCard(data = PlanCardData("Jade",5,2,true,200),.0f)
-}
+//@Preview
+//@Composable
+//fun CardPreview(){
+//    PlanCard(data = PlanCardData("Jade",5,2,true,200),.0f)
+//}

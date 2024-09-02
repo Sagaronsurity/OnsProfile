@@ -25,7 +25,7 @@ fun NavController() {
         composable<Profile> {
             ProfileScreen(
                 { navController.navigate(Form) },
-                profiledata("Santhosh Mangaldeep", "Male", "02 Oct 2002", "9876543210", 1.0),
+                profiledata("Santhosh Mangaldeep", "Male", "02 Oct 2002", "9876543210", .5),
                 { name->
                     when(name){
                         "Company Plan" -> navController.navigate(PlanSelection)

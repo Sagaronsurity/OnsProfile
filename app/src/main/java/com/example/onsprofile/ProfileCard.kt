@@ -43,11 +43,11 @@ fun ProfileCard(progress : Float){
                 painter = painterResource(id = R.drawable.profileforons),
                 contentDescription = null,
                 modifier = Modifier
-                    .padding(8.dp)
-                    .height(108.dp)
-                    .width(108.dp)
+                    .height(90.dp)
+                    .width(90.dp)
                     .clip(CircleShape)
                     .background(Color.White)
+                    .align(Alignment.Center)
             )
 
             CircularProgressIndicator(
@@ -55,22 +55,24 @@ fun ProfileCard(progress : Float){
                 color = Color(0XFF1C68F0),
                 strokeWidth = 6.dp,
                 modifier = Modifier
-                    .padding(1.dp)
-                    .width(120.dp)
-                    .height(120.dp)
+
+                    .width(102.dp)
+                    .height(102.dp)
+                    .align(Alignment.Center)
             )
 
 
             CircularProgressIndicator(
-                progress = { progress.toFloat() },
+                progress = { progress },
                 color = if (progress < 1.0) Color(0xFFFDDE13) else Color(
                     0xFF13FD55
                 ),
                 strokeWidth = 6.dp,
                 modifier = Modifier
-                    .padding(top = 1.dp, start = 1.dp)
-                    .width(120.dp)
-                    .height(120.dp)
+
+                    .width(102.dp)
+                    .height(102.dp)
+                    .align(Alignment.Center)
             )
 
 
@@ -78,21 +80,11 @@ fun ProfileCard(progress : Float){
             Column(
                 modifier = Modifier
                     .align(Alignment.TopEnd)
-                    .padding(end = 6.dp)
+                    .padding(5.dp)
             ) {
-                Box(
-                    modifier = Modifier
-                        .background(Color(0xFF002042), shape = CircleShape)
-                        .padding(4.dp)
-                ) {
-                    Icon(
-                        imageVector = Icons.Default.CameraAlt, contentDescription = null,
-                        tint = Color.White,
-                        modifier = Modifier
-                            .size(24.dp)
-                            .padding(4.dp)
-                    )
-                }
+                Icon(painter = painterResource(id = R.drawable.ic_cam),
+                    contentDescription = null,
+                    tint = Color.Unspecified)
             }
 
         }
