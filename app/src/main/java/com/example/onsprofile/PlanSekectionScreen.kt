@@ -295,13 +295,14 @@ fun BottomCheckout(price : Int){
         Button(
             onClick = { },
             colors = ButtonDefaults.buttonColors(
-                containerColor = if(price==0) Color(0xFFC7C6CA) else Color(0xFF0188FC),
+                containerColor = Color(0xFF0188FC),
             ),
+            enabled = if(price==0) false else true,
             shape = RoundedCornerShape(32.dp),
             modifier = Modifier.padding(top = 16.dp, start = 16.dp, bottom = 16.dp, end = 16.dp)
         ) {
             Text(
-                text = if(price==0) "Upgrade" else "Upgrade 1/3",
+                text = "Upgrade",
                 color = Color(0xFFF2F9FF),
                 fontFamily = FontFamily(Font(R.font.hk_grotesk_bold)),
                 fontSize = 15.sp,
