@@ -16,11 +16,23 @@ object Form
 @Serializable
 object PlanSelection
 
+@Serializable
+object Benifits
+
+@Serializable
+object BillingDetails
+
+@Serializable
+object MyClaims
+
+@Serializable
+object MemberAddition
+
 @Composable
 fun NavController() {
 
     val navController = rememberNavController()
-    NavHost(navController = navController, startDestination = Profile) {
+    NavHost(navController = navController, startDestination = Benifits) {
 
         composable<Profile> {
             ProfileScreen(
@@ -35,6 +47,14 @@ fun NavController() {
         }
         composable<Form> { Form { navController.navigate(Profile) } }
         composable<PlanSelection> { PlanSelectionScreen() }
+        composable<Benifits> { BenifitsScreen(
+            { navController.navigate(BillingDetails) },
+            { navController.navigate(MyClaims) },
+            { navController.navigate(MemberAddition) }
+        ) }
+        composable<BillingDetails> { BillingDetailsScreen() }
+        composable<MyClaims> { MyClaimsScreen() }
+        composable<MemberAddition> { MemberAdditionScreen() }
 
     }
 

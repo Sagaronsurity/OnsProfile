@@ -1,0 +1,5 @@
+package com.example.onsprofile
+
+val bottomSheetText : String = """This is the time you need to wait before your health insurance starts covering certain conditions or treatments. Common types include the initial waiting period, typically 30 days from the start of the policy, during which only accidental injuries are covered; the pre-existing disease (PED) waiting period, which can range from 1 to 4 years and applies to health conditions you had before buying the insurance; and the disease-specific waiting period, usually 1 to 2 years, for specific illnesses or treatments.  
+ 
+Example: Say you buy a health insurance policy on January 1st, it might have a 30-day initial waiting period, a 2-year waiting period for pre-existing conditions like diabetes, and a 1-year waiting period for specific treatments like hernia surgery. This means you can claim for hospitalisation due to accidents after the start of the policy, general illnesses after 30 days, diabetes treatments after 2 years, and hernia surgery after 1 year.This could vary depending on the plan you choose. It’s advisable to refer your policy documents closely. """

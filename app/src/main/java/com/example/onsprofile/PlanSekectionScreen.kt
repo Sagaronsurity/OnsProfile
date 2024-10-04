@@ -48,14 +48,14 @@ fun CurrentPlanCard(
         Column(
                 modifier = Modifier
                     .padding(16.dp)
-                    .clip(CustomShape(cornerRadius = 12.dp))
+                    .clip(CustomShapeCard(cornerRadius = 12.dp))
                     .background(
                         color = Color.White,
                     )
                     .border(
                         width = 2.dp,
                         color = Color(0xFFF2F2F2),
-                        shape = CustomShape(12.dp)
+                        shape = CustomShapeCard(12.dp)
                     )
         ) {
                 Text(

@@ -95,11 +95,12 @@ fun BottomBar() {
     )
     Row(
         modifier = Modifier
-                .fillMaxWidth()
-                .padding(start = 16.dp, end = 16.dp)
-                .background(Color.Black,
-                    shape = RoundedCornerShape(topStart = 32.dp, topEnd = 32.dp)
-                ),
+            .fillMaxWidth()
+            .padding(start = 16.dp, end = 16.dp)
+            .background(
+                Color.White,
+                shape = RoundedCornerShape(topStart = 32.dp, topEnd = 32.dp)
+            ),
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
             items.forEach { item ->
@@ -116,7 +117,7 @@ fun BottomBar() {
 @Composable
 fun Profile(modifier: Modifier, onBackClick: () -> Unit, profiledata: profiledata , onItemClick: (String) -> Unit) {
     OnsProfileTheme {
-        Box(
+        Column(
             modifier = Modifier
                 .fillMaxSize()
                 .background(
@@ -134,7 +135,6 @@ fun Profile(modifier: Modifier, onBackClick: () -> Unit, profiledata: profiledat
                     )
                 )
         ) {
-            Column {
                 Row(
                     Modifier
                         .padding(top = 36.dp, start = 16.dp, end = 16.dp)
@@ -143,9 +143,7 @@ fun Profile(modifier: Modifier, onBackClick: () -> Unit, profiledata: profiledat
                 ) {
                     Image(
                         painter = painterResource(id = R.drawable.ic_onslogo),
-                        contentDescription = null,
-
-                        )
+                        contentDescription = null,)
 
                     Row(
                         Modifier.weight(1f),
@@ -164,21 +162,23 @@ fun Profile(modifier: Modifier, onBackClick: () -> Unit, profiledata: profiledat
                             painter = painterResource(id = R.drawable.ic_cart),
                             contentDescription = null,
                             tint = Color.Unspecified,
-                            modifier = Modifier.clickable {  }
+                            modifier = Modifier
+                                .clickable { }
                                 .padding(start = 24.dp)
                         )
                         Icon(
                             painter = painterResource(id = R.drawable.ic_headset),
                             contentDescription = null,
                             tint = Color.Unspecified,
-                            modifier = Modifier.clickable {  }
+                            modifier = Modifier
+                                .clickable { }
                                 .padding(start = 24.dp)
                         )
                     }
                 }
                 Profiledetails(onBackClick, profiledata)
                 ListItemsColoumn(onItemClick)
-            }
+
         }
     }
 }
@@ -404,7 +404,6 @@ fun ListItemsColoumn(onItemClick : (String)->Unit) {
         "Support" to R.drawable.ic_headset,
         "Settings" to R.drawable.ic_settings,
     )
-    var count = 0
     LazyColumn(
         modifier = Modifier
             .clip(RoundedCornerShape(topStart = 32.dp, topEnd = 32.dp))
@@ -412,11 +411,11 @@ fun ListItemsColoumn(onItemClick : (String)->Unit) {
             .padding(top = 32.dp)
     ) {
         items(items) { item ->
-            count++
             Listitem(name = item.first, id = item.second , onItemClick )
-            if(count==items.size){
-                Spacer(modifier = Modifier.height(70.dp))
-            }
+
+        }
+        item {
+            Spacer(modifier = Modifier.height(48.dp))
         }
 
     }
