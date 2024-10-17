@@ -38,6 +38,12 @@ fun OnGoingClaimsRemainder(
                 width = 1.dp,
                 color = Color(0xFFF6F6F6),
                 shape = RoundedCornerShape(16.dp)
+            )
+            .shadow(
+                elevation = 16.dp,
+                shape = RoundedCornerShape(16.dp),
+                ambientColor = Color(0xFFE8F4FF),
+                spotColor = Color(0xFFE8F4FF)
             ),
         colors = CardDefaults.cardColors(
             containerColor = Color.White
@@ -71,4 +77,10 @@ fun OnGoingClaimsRemainder(
             )
         }
     }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun OnGoingClaimsRemainderPreview(){
+    OnGoingClaimsRemainder(onClaimsClikced = {})
 }

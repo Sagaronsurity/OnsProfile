@@ -85,7 +85,7 @@ fun DotsIndicator(
             val isSelected = i == selectedIndex
             Box(
                 modifier = Modifier
-                    .padding(horizontal = 4.dp)
+                    .padding(horizontal = 2.dp)
                     .clip(if (isSelected) RoundedCornerShape(50) else CircleShape)
                     .size(
                         if (isSelected) 14.dp else 4.dp,

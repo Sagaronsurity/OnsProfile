@@ -15,6 +15,7 @@ import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -56,7 +57,7 @@ fun NomineeRemainders(
             modifier = Modifier
                 .background(color = Color(0xFFFFF9E7))
                 .padding(start = 16.dp, top = 10.dp, end = 16.dp, bottom = 10.dp),
-            horizontalAlignment = CenterHorizontally
+            horizontalAlignment = Alignment.End
         ) {
             Text(
                 text = "View Details",
@@ -100,7 +101,8 @@ fun NomineeRemainderCard(){
                 fontFamily = FontFamily(Font(R.font.hk_grotesk_regular)),
                 fontSize = 12.sp,
                 lineHeight = 16.sp,
-                fontWeight = FontWeight(400)
+                fontWeight = FontWeight(400),
+                color = Color(0xFF303034)
                 )
         }
     }

@@ -54,8 +54,11 @@ fun BitsRow(
                 fontSize = 14.sp,
                 fontWeight = FontWeight(700),
                 lineHeight = 20.sp,
-                modifier = Modifier.weight(1f))
-            DotsIndicator(totalDots = 3, selectedIndex = currentPage.value)
+                modifier = Modifier
+                    .weight(1f),
+                color = Color(0xFF303034)
+            )
+            DotsIndicator(totalDots = 4, selectedIndex = currentPage.value)
 
         }
         LazyRow(
@@ -63,7 +66,7 @@ fun BitsRow(
             horizontalArrangement = Arrangement.spacedBy(16.dp),
             contentPadding = PaddingValues(horizontal = 16.dp)
         ) {
-             items(3){
+             items(4){
                  Column{
                      BitCard(
                          onArrowClicked = onArrowClicked
@@ -102,7 +105,8 @@ fun BitCard(
                 fontSize = 14.sp,
                 fontWeight = FontWeight(500),
                 lineHeight = 20.sp,
-                modifier = Modifier.weight(1f)
+                modifier = Modifier.weight(1f),
+                color = Color(0xFF303034)
             )
             Box(
                 modifier = Modifier
@@ -121,4 +125,10 @@ fun BitCard(
 
         }
     }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun BitsRowPreview(){
+    BitsRow(onArrowClicked = {})
 }

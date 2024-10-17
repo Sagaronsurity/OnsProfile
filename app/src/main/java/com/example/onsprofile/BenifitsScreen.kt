@@ -59,25 +59,47 @@ fun BenifitsScreen(
     val sheetState = rememberModalBottomSheetState()
     var isSheetOpen by remember { mutableStateOf(false) }
     var isFilterOpen by remember { mutableStateOf(false) }
+
     Scaffold(
-        bottomBar = { BottomBar() },
+        bottomBar = {
+            BottomBar()
+        },
         floatingActionButton = {
-
+            BenifitsFAB()
+        },
+    ) {
+        Column(
+            modifier = Modifier
+                .background(
+                    brush = Brush.radialGradient(
+                        colors = listOf(
+                            Color(0xFF101869),
+                            Color(0xFF0715C0),
+                            Color(0xFF1F76F8)
+                        ),
+                        radius = 700f,
+                        center = Offset(
+                            x = -0.0319f * 1000f,  // -3.19% of the width
+                            y = 0.0f               // 0% of the height
+                        )
+                    )
+                )
+        ){
+            BenifitsTop(
+                  modifier = Modifier.padding(top = it.calculateTopPadding())
+            )
+            BenifitsPlansBody(
+                onArrowClicked = {
+                    isSheetOpen = true
+                },
+                onFiltersClicked = {
+                    isFilterOpen = true
+                },
+                onPayNowClicked = onPayNowClicked,
+                onClaimsClicked = onclaimsClicked,
+                onMemberAdditionClicked = onMemberAdditionClicked
+            )
         }
-    ) { paddingValues ->
-        BenifitsBody(
-            modifier = Modifier.padding(paddingValues),
-            onArrowClicked = {
-                isSheetOpen = true
-            },
-            onFilterClicked = {
-                isFilterOpen = true
-            },
-            onPayNowClicked = onPayNowClicked,
-            onClaimsClicked = onclaimsClicked,
-            onMemberAdditionClicked = onMemberAdditionClicked
-
-        )
     }
     if(isSheetOpen){
         ModalBottomSheet(
@@ -153,54 +175,12 @@ fun BenifitsBottomSheet(
 }
 
 
-
 @Composable
-fun BenifitsBody(
-    modifier: Modifier,
-    onArrowClicked: () -> Unit,
-    onFilterClicked: () -> Unit,
-    onPayNowClicked: () -> Unit,
-    onClaimsClicked: () -> Unit,
-    onMemberAdditionClicked: () -> Unit
-) {
-    OnsProfileTheme {
-        Column(
-            modifier = modifier
-                .fillMaxSize()
-                .background(
-                    brush = Brush.radialGradient(
-                        colors = listOf(
-                            Color(0xFF101869),
-                            Color(0xFF0715C0),
-                            Color(0xFF1F76F8)
-                        ),
-                        radius = 700f,
-                        center = Offset(
-                            x = -0.0319f * 1000f,  // -3.19% of the width
-                            y = 0.0f               // 0% of the height
-                        )
-                    )
-                )
-        ) {
-
-            BenifitsTop()
-            BenifitsPlansBody(
-                onArrowClicked = onArrowClicked,
-                onFiltersClicked = onFilterClicked,
-                onPayNowClicked = onPayNowClicked,
-                onClaimsClicked = onClaimsClicked,
-                onMemberAdditionClicked = onMemberAdditionClicked
-            )
-
-        }
-    }
-}
-
-
-@Composable
-fun BenifitsTop(){
+fun BenifitsTop(
+    modifier: Modifier
+){
     Row(
-        Modifier
+        modifier
             .padding(16.dp)
             .fillMaxWidth(),
         verticalAlignment = Alignment.CenterVertically
@@ -246,7 +226,6 @@ fun BenifitsPlansBody(
 ) {
     LazyColumn(
         modifier = Modifier
-            .fillMaxSize()
             .background(
                 color = Color.White,
                 shape = RoundedCornerShape(topStart = 16.dp, topEnd = 16.dp)
@@ -256,43 +235,11 @@ fun BenifitsPlansBody(
             item { ImageCarouselWithDots() }
             item { OnGoingClaimsRemainder(onClaimsClicked) }
             item { Spacer(modifier = Modifier.height(8.dp)) }
-            item {
-                Row(
-                    modifier = Modifier.padding(16.dp),
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    Text(
-                        text = "Active Plans",
-                        fontFamily = FontFamily(Font(R.font.hk_grotesk_bold)),
-                        fontSize = 14.sp,
-                        lineHeight = 20.sp,
-                        fontWeight = FontWeight(700),
-                        modifier = Modifier.weight(1f)
-                    )
-                    Row(
-                        modifier = Modifier.clickable { onFiltersClicked() }
-                    ) {
-                        Icon(
-                            painter = painterResource(id = R.drawable.ic_filters),
-                            contentDescription = null,
-                            tint = Color.Unspecified
-                        )
-                        Spacer(modifier = Modifier.width(4.dp))
-                        Text(
-                            text = "Filters",
-                            fontFamily = FontFamily(Font(R.font.hk_grotesk_medium)),
-                            fontSize = 12.sp,
-                            lineHeight = 16.sp,
-                            fontWeight = FontWeight(500)
-                        )
-                    }
-                }
-            }
+
         item { NomineeRemainders(onMemberAdditionClicked) }
         item { Spacer(modifier = Modifier.height(16.dp)) }
-        item { CategoryScreen() }
-        item {
-                Image(
+        item { CategoryScreen(onFiltersClicked) }
+        item { Image(
                     painter = painterResource(R.drawable.banner),
                     contentDescription = null,
                     contentScale = ContentScale.Crop,
@@ -301,83 +248,19 @@ fun BenifitsPlansBody(
                         .padding(16.dp)
                         .clip(RoundedCornerShape(8.dp))
                         .height(80.dp)
-                        .width(328.dp)
-                )
+                        .width(328.dp))
         }
         item { BitsRow(onArrowClicked = onArrowClicked) }
+        item { Spacer(modifier = Modifier.height(60.dp)) }
     }
 }
 
+@Preview
 @Composable
-fun CategoryScreen() {
-    val categories = listOf("All", "Health", "Accident", "Cyber")
-    var selectedCategory by remember { mutableStateOf(categories[0]) }
-
-    // Category selection tabs (LazyRow)
-    LazyRow(
-        horizontalArrangement = Arrangement.spacedBy(4.dp)
-    ) {
-        items(categories) { category ->
-            CategoryTab(
-                category = category,
-                isSelected = category == selectedCategory,
-                onCategorySelected = { selectedCategory = it }
-            )
-        }
-    }
-
-    Spacer(modifier = Modifier.height(24.dp))
-
-    Column(
-        verticalArrangement = Arrangement.spacedBy(16.dp)
-    ) {
-        val filteredItems = getItemsForCategory(selectedCategory)
-        for(i in 0..filteredItems){
-            InsuranceBox()
-        }
-    }
+fun BenifitsScreenPreview() {
+    BenifitsScreen(
+        onPayNowClicked = {},
+        onclaimsClicked = {},
+        onMemberAdditionClicked = {}
+    )
 }
-
-fun getItemsForCategory(category: String): Int {
-    val allItems = 6
-    return when (category) {
-        "All" -> allItems
-        "Health" -> 2
-        "Cyber" -> 3
-        "Accident" -> 1
-        else -> 0
-    }
-}
-
-@Composable
-fun CategoryTab(category: String, isSelected: Boolean, onCategorySelected: (String) -> Unit) {
-    Column(
-        modifier = Modifier
-            .padding(start = 28.dp)
-            .clickable { onCategorySelected(category) },
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        Text(
-            text = category,
-            color = if (isSelected) Color(0xFF0188FC) else Color.Gray,
-            fontFamily = FontFamily(Font(R.font.hk_grotesk_regular)),
-            fontSize = 14.sp,
-            lineHeight = 20.sp,
-            fontWeight = FontWeight(400),
-            modifier = Modifier.padding(start = 4.dp, end = 4.dp)
-        )
-        if (isSelected) {
-            Box(
-                modifier = Modifier
-                    .width((category.length * 9).dp)
-                    .height(4.dp)
-                    .clip(RoundedCornerShape(48.dp))
-                    .background(Color(0xFF0188FC))
-            )
-        }
-    }
-}
-
-
-
-

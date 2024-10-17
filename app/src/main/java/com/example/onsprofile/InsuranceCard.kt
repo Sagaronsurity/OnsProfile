@@ -65,6 +65,7 @@ fun InsurenceCard(){
                     fontSize = 12.sp,
                     fontWeight = FontWeight(400),
                     lineHeight = 16.sp,
+                    color = Color(0xFF5E5E62)
                 )
 //                Text(
 //                    text = "Icici Bank",
@@ -93,6 +94,7 @@ fun InsurenceCard(){
                     fontSize = 14.sp,
                     fontWeight = FontWeight(700),
                     lineHeight = 20.sp,
+                    color = Color(0xFF303034)
                 )
                 Spacer(modifier = Modifier.width(56.dp))
                 Text(
@@ -103,6 +105,7 @@ fun InsurenceCard(){
                     fontSize = 14.sp,
                     fontWeight = FontWeight(700),
                     lineHeight = 20.sp,
+                    color = Color(0xFF303034)
                 )
             }
         }
@@ -124,12 +127,16 @@ fun InsurenceCard(){
                     fontFamily = FontFamily(Font(R.font.hk_grotesk_regular)),
                     fontSize = 12.sp,
                     fontWeight = FontWeight(400),
-                    lineHeight = 16.sp,)
+                    lineHeight = 16.sp,
+                    color = Color(0xFF5E5E62)
+                    )
                 Text(text = "Self, Spouse, Children + 2 More",
                     fontFamily = FontFamily(Font(R.font.hk_grotesk_medium)),
                     fontSize = 12.sp,
                     fontWeight = FontWeight(500),
-                    lineHeight = 16.sp,)
+                    lineHeight = 16.sp,
+                    color = Color(0xFF303034)
+                )
             }
             Icon(painter = painterResource(id = R.drawable.ic_health_insurance2),
                 contentDescription = null,
